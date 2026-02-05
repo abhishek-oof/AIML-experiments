@@ -1,0 +1,234 @@
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+# ============================================================
+# PROGRAM 1 — NUMPY FUNCTIONS
+# ============================================================
+
+print("\n=========== NUMPY FUNCTIONS ===========")
+
+# 1. Array Creation
+arr1 = np.array([1, 2, 3, 4, 5])
+print("Array from list:", arr1)
+
+arr2 = np.array([[1,2,3],[4,5,6]])
+print("2D Array:\n", arr2)
+
+arr_arange = np.arange(0, 10, 2)
+print("arange array:", arr_arange)
+
+arr_linspace = np.linspace(0, 1, 5)
+print("linspace array:", arr_linspace)
+
+arr_zeros = np.zeros((2,3))
+print("zeros array:\n", arr_zeros)
+
+arr_ones = np.ones((3,2))
+print("ones array:\n", arr_ones)
+
+arr_eye = np.eye(3)
+print("Identity matrix:\n", arr_eye)
+
+# 2. Array Attributes
+print("Shape:", arr2.shape)
+print("Size:", arr2.size)
+print("Dimensions:", arr2.ndim)
+print("Datatype:", arr2.dtype)
+print("Itemsize:", arr2.itemsize)
+
+# 3. Indexing & Slicing
+arr = np.array([10, 20, 30, 40, 50])
+print("Index 2:", arr[2])
+print("Slice 1:4:", arr[1:4])
+
+arr2d = np.array([[1,2,3],[4,5,6],[7,8,9]])
+print("Submatrix:\n", arr2d[0:2,1:3])
+
+# 4. Basic Operations
+a = np.array([1,2,3])
+b = np.array([4,5,6])
+
+print("a+b:", a+b)
+print("a*b:", a*b)
+
+# Broadcasting
+c = np.array([[1,2,3],[4,5,6]])
+d = np.array([1,1,1])
+print("Broadcasting:\n", c+d)
+
+# 5. Universal Functions
+arr = np.array([1,4,9,16])
+print("sqrt:", np.sqrt(arr))
+print("sin:", np.sin(arr))
+
+# 6. Aggregation
+arr = np.array([[1,2,3],[4,5,6]])
+print("Sum:", np.sum(arr))
+print("Mean:", np.mean(arr))
+print("Max:", np.max(arr))
+
+# 7. Reshape
+arr = np.arange(12)
+reshaped = arr.reshape(3,4)
+print("Reshaped:\n", reshaped)
+print("Flatten:", reshaped.flatten())
+
+# 8. Stacking & Splitting
+a = np.array([1,2,3])
+b = np.array([4,5,6])
+print("Hstack:", np.hstack((a,b)))
+
+arr = np.arange(9)
+print("Split:", np.split(arr,3))
+
+# 9. Copy vs View
+arr = np.array([1,2,3,4])
+view = arr.view()
+copy = arr.copy()
+view[0] = 100
+copy[1] = 200
+print("Original after view:", arr)
+print("Original after copy:", arr)
+
+# 10. Boolean Indexing
+arr = np.array([10,20,30,40,50])
+print("Elements >25:", arr[arr>25])
+
+# 11. Random Numbers
+print("Random array:\n", np.random.rand(3,3))
+
+# 12. Linear Algebra
+A = np.array([[1,2],[3,4]])
+B = np.array([[5,6],[7,8]])
+print("Dot:\n", np.dot(A,B))
+print("Determinant:", np.linalg.det(A))
+
+# 13. Save & Load
+np.save('array.npy', arr)
+print("Loaded:", np.load('array.npy'))
+
+
+# ============================================================
+# PROGRAM 2 — PANDAS FUNCTIONS
+# ============================================================
+
+print("\n=========== PANDAS FUNCTIONS ===========")
+
+# Series
+s1 = pd.Series([10,20,30,40])
+print(s1)
+
+s2 = pd.Series([1,2,3], index=['a','b','c'])
+print(s2)
+
+# DataFrame
+df1 = pd.DataFrame({
+    'Name':['Alice','Bob','Charlie'],
+    'Age':[25,30,35],
+    'City':['NY','LA','Chicago']
+})
+print(df1)
+
+# Viewing
+print(df1.head())
+print(df1.describe())
+
+# Selection
+print(df1['Name'])
+print(df1.loc[1])
+
+# Filtering
+print(df1[df1['Age']>28])
+
+# Adding Column
+df1['Salary'] = [50000,60000,70000]
+print(df1)
+
+# Dropping Column
+print(df1.drop('Salary', axis=1))
+
+# Missing Data
+df_missing = pd.DataFrame({'A':[1,np.nan,3],'B':[4,5,np.nan]})
+print(df_missing.fillna(0))
+
+# Grouping
+df_group = pd.DataFrame({
+    'Department':['HR','IT','HR','IT','IT'],
+    'Salary':[50000,60000,55000,65000,70000]
+})
+print(df_group.groupby('Department')['Salary'].mean())
+
+# Sorting
+print(df1.sort_values('Age'))
+
+# Merge
+df_a = pd.DataFrame({'ID':[1,2,3],'Name':['A','B','C']})
+df_b = pd.DataFrame({'ID':[2,3,4],'Score':[90,80,70]})
+print(pd.merge(df_a, df_b, on='ID', how='outer'))
+
+# File I/O
+df1.to_csv('df1.csv', index=False)
+print(pd.read_csv('df1.csv'))
+
+
+# ============================================================
+# PROGRAM 3 — MATPLOTLIB PLOTS
+# ============================================================
+
+print("\n=========== MATPLOTLIB PLOTS ===========")
+
+# Line Plot
+x = np.array([0,1,2,3,4,5])
+y = x**2
+
+plt.figure()
+plt.plot(x,y)
+plt.title("Line Plot")
+plt.show()
+
+# Multiple Lines
+plt.figure()
+plt.plot(x, x**2, label='x^2')
+plt.plot(x, x**3, label='x^3')
+plt.legend()
+plt.show()
+
+# Scatter
+plt.figure()
+plt.scatter(np.random.rand(50), np.random.rand(50))
+plt.show()
+
+# Bar Plot
+plt.figure()
+plt.bar(['A','B','C'], [10,20,15])
+plt.show()
+
+# Histogram
+plt.figure()
+plt.hist(np.random.randn(1000), bins=30)
+plt.show()
+
+# Pie Chart
+plt.figure()
+plt.pie([25,35,20,20], labels=['Python','C++','Java','Other'], autopct='%1.1f%%')
+plt.show()
+
+# Subplots
+x = np.linspace(0,10,100)
+plt.figure()
+plt.subplot(1,2,1)
+plt.plot(x, np.sin(x))
+plt.subplot(1,2,2)
+plt.plot(x, np.cos(x))
+plt.show()
+
+# Save Plot
+plt.figure()
+plt.plot(x, np.sin(x))
+plt.savefig("sine_wave_plot.png")
+plt.close()
+
+print("\nALL PROGRAMS EXECUTED SUCCESSFULLY")
